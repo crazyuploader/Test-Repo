@@ -12,18 +12,6 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2.4.0
-        with:
-          fetch-depth: 0
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
-
-      - name: Build Dockerfile(s)
-        run: docker buildx build --platform linux/arm64 --file Dockerfile --tag crazyuploader/speedtest:latest .
+      - name: Echo
+        run: echo "Hello from Self-Hosted Runner!"
