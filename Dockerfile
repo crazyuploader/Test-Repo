@@ -3,11 +3,14 @@
 #
 # Speedtest CLI Docker Image
 #
-# Using Alpine as base
-FROM alpine:latest AS builder
+# Using Ubuntu as base
+FROM ubuntu:latest AS builder
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Installing Dependencies
-RUN apk --no-cache add wget
+RUN apt-get update && \
+    apt-get install -y wget
 
 # Build time Environment Variable
 ARG VERSION="1.1.1"
@@ -27,7 +30,7 @@ RUN set -e && \
 # Extracting Speedtest CLI, and putting in /usr/bin
 RUN tar xf speedtest.tar.tgz
 
-FROM alpine:latest AS runner
+FROM ubuntu:latest AS runner
 
 # Copy Speedtest CLI binary to /usr/bin
 COPY --from=builder /tmp/speedtest /usr/bin
